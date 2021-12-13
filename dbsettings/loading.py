@@ -62,7 +62,10 @@ def get_setting_storage(module_name, class_name, attribute_name):
             )
         if USE_CACHE:
             try:
-                cache.set(key, storage, CACHE_EXPIRATION)
+                args = []
+                if CACHE_EXPIRATION != -1:
+                    args.append(CACHE_EXPIRATION)
+                cache.set(key, storage, *args)
             except:
                 pass
     return storage
